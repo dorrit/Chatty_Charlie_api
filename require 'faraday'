@@ -1,0 +1,13 @@
+require 'faraday'
+  
+require 'json'
+  
+response = Faraday.post do |request|
+  
+  request.url 'http://0.0.0.0:3000/messages'
+  
+  request.headers['Content-Type'] = 'application/json'
+  
+  request.body = {:message => {:nick => 'mickey', :chat => 'you blew it dude!', :chatroom => 'Mickey Mouse Club'}}.to_json
+  
+end
