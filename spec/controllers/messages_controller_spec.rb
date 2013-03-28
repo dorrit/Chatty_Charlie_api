@@ -8,7 +8,7 @@ describe MessagesController do
 
   context 'POST create' do
     context 'with valid paramters' do 
-      let(:valid_attributes) {{:nick => 'Stretch', :chat => "Check it out, I'm tall.", :chatroom => "tallguyslounge"}}
+      let(:valid_attributes) {{:nick => 'Stretch', :chat => "Check it out, I'm tall.", :chatroom_id => 1}}
       let(:valid_parameters) {{:message => valid_attributes}}
 
       it 'creates a new message' do
@@ -24,7 +24,7 @@ describe MessagesController do
     end
 
     context 'with invalid parameters' do
-      let(:invalid_attributes) {{ :nick => '', :chat => '', :chatroom => ''}}
+      let(:invalid_attributes) {{:nick => '', :chat => '', :chatroom_id => ''}}
       let(:invalid_parameters) {{:message => invalid_attributes}}
 
       before {post :create, invalid_parameters}
@@ -38,8 +38,11 @@ describe MessagesController do
   end
 
   context 'GET index' do
-    before {Message.create({:nick => 'PinkMadonna', :chat => "Lookit mah make up!!!!!", :chatroom => "TrannyChat"})}
-    before {get :index}
+    let(:valid_attributes) {{:nick => 'PinkMadonna', :chat => "Lookit mah make up!!!!!", :chatroom_id => 1}}
+    let(:valid_parameters) {{:message => valid_attributes}}
+
+    before {Message.create()}
+    before {get :index, valid_parameters}
 
     it {should respond_with 200}
     it {should respond_with_content_type :json}

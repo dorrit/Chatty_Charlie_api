@@ -9,7 +9,7 @@ class MessagesController < ApplicationController
   end
 
   def index
-    messages = Message.all
+    messages = Message.where(:chatroom_id => params[:message][:chatroom_id])
     render :json => messages
   end
 end
